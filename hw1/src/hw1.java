@@ -62,43 +62,43 @@ public class hw1 {
 
                 if (matrixSize == 1) {
                     if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8 || i == 9 || i == 10) {
-                        System.out.printf(space + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 2) {
                     if (i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12 || i == 14 || i == 16 || i == 18 || i == 20) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 3) {
                     if (i == 3 || i == 6 || i == 9 || i == 12 || i == 15 || i == 18 || i == 21 || i == 24 || i == 27 || i == 30) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 4) {
                     if (i == 4 || i == 8 || i == 12 || i == 16 || i == 20 || i == 24 || i == 28 || i == 32 || i == 36 || i == 40) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 5) {
                     if (i == 5 || i == 10 || i == 15 || i == 20 || i == 25 || i == 30 || i == 35 || i == 40 || i == 45 || i == 50) {
-                        System.out.printf("%s"+ "\n", space);
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 6) {
                     if (i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42 || i == 48 || i == 54 || i == 60) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 7) {
                     if (i == 7 || i == 14 || i == 21 || i == 28 || i == 35 || i == 42 || i == 49 || i == 56 || i == 63 || i == 70) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 8) {
                     if (i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56 || i == 64 || i == 72 || i == 80) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 9) {
                     if (i == 9 || i == 18 || i == 27 || i == 36 || i == 45 || i == 54 || i == 63 || i == 72 || i == 81 || i == 90) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 } else if (matrixSize == 10) {
                     if (i == 10 || i == 20 || i == 30 || i == 40 || i == 50 || i == 60 || i == 70 || i == 80 || i == 90 || i == 100) {
-                        System.out.printf("  " + "\n");
+                        System.out.printf("\n");
                     }
                 }
                 matrix = matrix + s;
