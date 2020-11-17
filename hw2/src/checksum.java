@@ -51,9 +51,16 @@ public class checksum {
 
                 if(checkSumSize == 8) {
 
+                    int lineCounter = 0;
+                    for(int g = 0; g < echo.length(); g++) {
+                        if (lineCounter % 80 == 0) {
+                            System.out.print("\n");
+                        }
+                        System.out.print(echo.charAt(g));
+                        lineCounter++;
+                    }
 
-                    System.out.println("\n" + echo);
-
+                    System.out.print("\n");
                     String[] binaryString8 = new String[echo.length()];
 
                     for (int i = 0; i < echo.length(); i++) {
@@ -73,10 +80,11 @@ public class checksum {
                     String num = "";
 
                     for(int j = 1; j < binaryString8.length; j++){
-                        result = binaryConversion(result, binaryString8[j]);
+                        int carry = 0;
+                        result = binaryIterate(result.length()-1, binaryString8[j].length()-1, result, binaryString8[j], carry);
                     }
                     twosComplement(result);
-                    String checksum = Integer.toHexString(Integer.parseInt(result));
+                    String checksum = Integer.toHexString(Integer.parseInt(result, 2));
                     //System.out.println("Result: " + num);
 
                     //long checksum = new BigInteger(num, 16).longValue();
@@ -93,7 +101,18 @@ public class checksum {
                         }
                     }
 
-                    System.out.println("\n" + echo);
+                    int lineCounter16 = 0;
+                    for(int g = 0; g < echo.length(); g++) {
+                        if (lineCounter16 % 80 == 0) {
+                            System.out.print("\n");
+                        }
+                        System.out.print(echo.charAt(g));
+                        lineCounter16++;
+                    }
+
+                    System.out.print("\n");
+
+                    //System.out.println("\n" + echo);
                     //System.out.println("\n" + echo.length()/2);
                     int counter = 0;
                     int[] combinedString = new int[echo.length()/2];
@@ -125,15 +144,16 @@ public class checksum {
                     //System.out.println("In 16");
 
                     for(int j = 1; j < binaryString16.length; j++){
-                        result16 = binaryConversion(result16, binaryString16[j]);
+                        int carry = 0;
+                        result16 = binaryIterate(result16.length()-1, binaryString16[j].length()-1, result16, binaryString16[j], carry);
                     }
                     twosComplement(result16);
-                    String checksumS = Integer.toHexString(Integer.parseInt(result16));
+                    String checksum = Integer.toHexString(Integer.parseInt(result16, 2));
                     //System.out.println("Result: " + num);
-                    long checksum = Long.parseLong(checksumS);
+
 
                     //long checksum = new BigInteger(num, 16).longValue();
-                    System.out.printf("%2d bit checksum is %8lx for all %4d chars\n",
+                    System.out.printf("%2d bit checksum is %8s for all %4d chars\n",
                             checkSumSize, checksum, characterCount);
                 }
                 else if(checkSumSize == 32){
@@ -144,7 +164,18 @@ public class checksum {
                         }
                     }
 
-                    System.out.println("\n" + echo);
+                    int lineCounter32 = 0;
+                    for(int g = 0; g < echo.length(); g++) {
+                        if (lineCounter32 % 80 == 0) {
+                            System.out.print("\n");
+                        }
+                        System.out.print(echo.charAt(g));
+                        lineCounter32++;
+                    }
+
+                    System.out.print("\n");
+
+                    //System.out.println("\n" + echo);
                     //System.out.println("\n" + echo.length()/4);
 
                     int counter = 0;
@@ -177,11 +208,12 @@ public class checksum {
                     //System.out.println("In 16");
 
                     for(int j = 1; j < binaryString32.length; j++){
-                        result32 = binaryConversion(result32, binaryString32[j]);
+                        int carry = 0;
+                        result32 = binaryIterate(result32.length()-1, binaryString32[j].length()-1, result32, binaryString32[j], carry);
                     }
 
                     twosComplement(result32);
-                    String checksum = Integer.toHexString(Integer.parseInt(result32));
+                    String checksum = Integer.toHexString(Integer.parseInt(result32,2));
                     //System.out.println("Result: " + num);
 
                     //long checksum = new BigInteger(num, 16).longValue();
@@ -200,53 +232,30 @@ public class checksum {
         }
     }
 
-    public static String binaryConversion(String lastBinaryNumber, String binaryNumber){
-        String result = "";
-        StringBuilder reverser = new StringBuilder();
+    public static String binaryIterate(int p, int s, String numberOne, String numberTwo, int carry){
+        StringBuilder result = new StringBuilder();
+        while(p >= 0 || s >= 0){
+            int carryD = 0;
 
-        //System.out.println(lastBinaryNumber + "    " + binaryNumber);
+            if((p>= 0 && numberOne.charAt(p) == '1')){carryD++;}
 
-        int carry = 0;
-        for(int i = 0; i < lastBinaryNumber.length(); i++){
-            if(lastBinaryNumber.charAt(i) == '1' && binaryNumber.charAt(i) == '1' && carry == 0){
-                result += '0';
-                carry = 1;
-            }
-            else if(lastBinaryNumber.charAt(i) == '0' && binaryNumber.charAt(i) == '1' && carry == 0){
-                result += '1';
-                carry = 0;
-            }
-            else if(lastBinaryNumber.charAt(i) == '1' && binaryNumber.charAt(i) == '0' && carry == 0){
-                result += '1';
-                carry = 0;
-            }
-            else if(lastBinaryNumber.charAt(i) == '0' && binaryNumber.charAt(i) == '0' && carry == 0){
-                result += '0';
-                carry = 0;
-            }
-            else if(lastBinaryNumber.charAt(i) == '1' && binaryNumber.charAt(i) == '1' && carry == 1){
-                result += '1';
-                carry = 1;
-            }
-            else if(lastBinaryNumber.charAt(i) == '0' && binaryNumber.charAt(i) == '1' && carry == 1){
-                result += '0';
-                carry = 1;
-            }
-            else if(lastBinaryNumber.charAt(i) == '1' && binaryNumber.charAt(i) == '0' && carry == 1){
-                result += '0';
-                carry = 1;
-            }
-            else if(lastBinaryNumber.charAt(i) == '0' && binaryNumber.charAt(i) == '0' && carry == 1){
-                result += '1';
-                carry = 0;
-            }
+            if(s>= 0 && numberTwo.charAt(s) == '1'){carryD++;}
+
+            carryD += carry;
+
+            if(carryD >= 2){carry = 1;}
+            else{carry = 0;}
+
+            int carryResult = carryD % 2 + '0';
+            result.insert(0, (char) (carryResult));
+
+            p--;
+            s--;
         }
-        reverser.append(result);
-        reverser.reverse();
-        result = String.valueOf(reverser);
-        //System.out.println(result);
-        return result;
+
+        return result.toString();
     }
+
 
     public static String twosComplement(String input){
         String complementedString = "";
@@ -262,6 +271,10 @@ public class checksum {
             }
         }
 
+        StringBuilder reverser = new StringBuilder();
+        reverser.append(complementedString);
+        reverser.reverse();
+        complementedString = reverser.toString();
         //System.out.println("\n\n" + complementedString);
 
         String compPlusOne = "";
@@ -272,7 +285,7 @@ public class checksum {
         else {
             one = "00000001";
         }
-        StringBuilder finalString = new StringBuilder();
+        /*StringBuilder finalString = new StringBuilder();
         int carry = 0;
 
         for(int j = 0; j < complementedString.length(); j++){
@@ -314,8 +327,11 @@ public class checksum {
         finalString.reverse();
         String doneString = finalString.toString();
 
-        //System.out.println("\n\n" + doneString);
+        //System.out.println("\n\n" + doneString);*/
+        int carry = 0;
+        String doneString = binaryIterate(complementedString.length()-1, one.length()-1, complementedString, one, carry);
 
+        //System.out.println(doneString);
         return doneString;
     }
 
